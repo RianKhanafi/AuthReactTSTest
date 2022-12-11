@@ -1,8 +1,8 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigatorScreenParams} from '@react-navigation/native';
 
 export type TParentNavigator = {
-  AuthRoute: NativeStackScreenProps<AuthStackParamList>;
-  PageRoute: NativeStackScreenProps<PageStackParamList>;
+  AuthRoute: NavigatorScreenParams<AuthStackParamList>;
+  PageRoute: NavigatorScreenParams<PageStackParamList>;
 };
 
 export type AuthStackParamList = {

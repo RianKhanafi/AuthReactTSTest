@@ -1,7 +1,7 @@
 import {AxiosError} from 'axios';
-import {useMutation} from 'react-query';
 import {MMKV} from 'react-native-mmkv';
-import {addUserService, loginServices} from './api';
+import {useMutation} from 'react-query';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   setLoadingLogin,
   setLoadingSignin,
@@ -9,7 +9,7 @@ import {
 } from '../../store/actions/auth';
 import {RootState} from '../../store/reducers';
 import {AuthState} from '../../store/reducers/auth';
-import {useDispatch, useSelector} from 'react-redux';
+import {addUserService, loginServices} from './api';
 
 export const storage = new MMKV();
 

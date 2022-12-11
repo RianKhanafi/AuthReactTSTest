@@ -1,6 +1,7 @@
-import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {View, StyleSheet, Text} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   Button,
   Container,
@@ -8,17 +9,19 @@ import {
   Input,
   TextButton,
 } from '../../components';
+import {IUserCredential} from '../../modules/auth/dto';
 import useAuth from '../../modules/auth/hook';
 import {AuthStackParamList} from '../../navigations/types';
-import {useDispatch, useSelector} from 'react-redux';
-import {AuthState} from '../../store/reducers/auth';
-import {RootState} from '../../store/reducers';
 import {setSignUpForm} from '../../store/actions/auth';
-import {IUserCredential} from '../../modules/auth/dto';
+import {RootState} from '../../store/reducers';
+import {AuthState} from '../../store/reducers/auth';
 
-type Props = NativeStackScreenProps<AuthStackParamList, 'SignUp'>;
+type TSignUpScreen = NativeStackScreenProps<
+  AuthStackParamList,
+  keyof AuthStackParamList
+>;
 
-const SignUp = ({navigation}: Props) => {
+const SignUp = ({navigation}: TSignUpScreen) => {
   const {signUpForm, isLoadingSignin}: AuthState = useSelector(
     (ev: RootState) => ev.auth,
   );
@@ -76,7 +79,7 @@ const SignUp = ({navigation}: Props) => {
             loading={isLoadingSignin}
             onPress={() => {
               signIn(() => {
-                navigation.navigate('Login' as never);
+                navigation.navigate('Login');
               });
             }}
           />

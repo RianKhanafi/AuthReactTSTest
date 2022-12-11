@@ -15,10 +15,14 @@ import {AuthStackParamList, TParentNavigator} from '../../navigations/types';
 import {setLoginForm} from '../../store/actions/auth';
 import {RootState} from '../../store/reducers';
 import {AuthState} from '../../store/reducers/auth';
+import {CompositeScreenProps} from '@react-navigation/native';
 
-type Props = NativeStackScreenProps<TParentNavigator & AuthStackParamList>;
+type TLoginScreen = CompositeScreenProps<
+  NativeStackScreenProps<AuthStackParamList, keyof AuthStackParamList>,
+  NativeStackScreenProps<TParentNavigator>
+>;
 
-const LoginScreen = ({navigation}: Props) => {
+const LoginScreen = ({navigation}: TLoginScreen) => {
   const {login} = useAuth();
   const dispatch = useDispatch();
   const {loginForm, isLoadingLogin}: AuthState = useSelector(
@@ -67,7 +71,7 @@ const LoginScreen = ({navigation}: Props) => {
             title="Login"
             onPress={() => {
               login(() => {
-                navigation.navigate('PageRoute' as never);
+                navigation.navigate('PageRoute', {screen: 'Home'});
               });
             }}
             loading={isLoadingLogin}
